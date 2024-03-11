@@ -20,19 +20,24 @@ const constraints = {
 async function getAll() {
   try {
     const allProducts = await db.product.findAll();
-    return createResponseSuccess(allProducts);
+    return createResponseSuccess(allProducts); // mappa och _formatpost
   } catch (error) {
     return createResponseError(error.status, error.message);
   }
 }
 
-async function getById(id) {
+async function getById(id) { 
+  
   try {
+    //console.log("wanted id is: " + id);
     const product = await db.product.findOne({
-      where: { id },
-      include: [db.rating],
+      
+     where: { id },
+      
+    //  include: [db.rating], // har inte fixat rating än. 
     });
-    return createResponseSuccess(_formatPost(product));
+    //console.log(product.title);
+    return createResponseSuccess(product); // _formatpost
   } catch (error) {
     return createResponseError(error.status, error.message);
   }
