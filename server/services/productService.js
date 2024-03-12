@@ -19,7 +19,7 @@ const constraints = {
 };
 async function getAll() {
   try {
-    const allProducts = await db.product.findAll();
+    const allProducts = await db.product.findAll({include: [db.rating]});
     return createResponseSuccess(allProducts); // mappa och _formatpost
   } catch (error) {
     return createResponseError(error.status, error.message);
@@ -29,20 +29,18 @@ async function getAll() {
 async function getById(id) { 
   
   try {
-    //console.log("wanted id is: " + id);
     const product = await db.product.findOne({
       
      where: { id },
       
-    //  include: [db.rating], // har inte fixat rating än. 
+      include: [db.rating], // har inte fixat rating än. 
     });
-    //console.log(product.title);
     return createResponseSuccess(product); // _formatpost
   } catch (error) {
     return createResponseError(error.status, error.message);
   }
 }
-/*
+
 async function addRating(id, rating) {
   if (!id) {
     return createResponseError(422, "Id är obligatoriskt");
@@ -54,7 +52,7 @@ async function addRating(id, rating) {
   } catch (error) {
     return createResponseError(error.status, error.message);
   }
-}*/
+}
 
 async function create(product) {
   const invalidData = validate(product, constraints);
@@ -111,6 +109,7 @@ async function destroy(id) {
 }
 
 module.exports = {
+  addRating,
   getById,
   getAll,
   create,
