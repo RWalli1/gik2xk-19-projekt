@@ -2,6 +2,8 @@ const router = require('express').Router();
 const db = require("../models");
 const productService = require('../services/productService');
 
+
+// ADD UPUT 
 router.post('/:id/addRating', (req, res) => {
   const rating = req.body;
   const id = req.params.id;
