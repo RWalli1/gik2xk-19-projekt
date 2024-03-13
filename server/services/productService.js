@@ -81,14 +81,14 @@ async function update(product, id) {
   }
   try {
     const existingProduct = await db.product.findOne({ where: { id } });
-    if (!existingPost) {
-      return createResponseError(404, "Hittade inget inlägg att uppdatera.");
+    if (!existingProduct) {
+      return createResponseError(404, "Hittade ingen produkt att uppdatera.");
     }
     //await _addTagToPost(existingPost, product.tags); // rating iställe
     await db.product.update(product, {
       where: { id },
     });
-    return createResponseMessage(200, "Inlägget uppdaterades.");
+    return createResponseMessage(200, "Produkten uppdaterades.");
   } catch (error) {
     return createResponseError(error.status, error.message);
   }
@@ -102,7 +102,7 @@ async function destroy(id) {
     await db.product.destroy({
       where: { id },
     });
-    return createResponseMessage(200, "Inlägget raderades.");
+    return createResponseMessage(200, "Produkten raderades.");
   } catch (error) {
     return createResponseError(error.status, error.message);
   }
