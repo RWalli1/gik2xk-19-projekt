@@ -45,7 +45,7 @@ const constraints = {
 // GET /id/getCart
 router.get("/:id/getCart", (req, res) => {
     const id = req.params.id;
-    cartService.getCartByUser(id).then((result) => {
+    cartService.getCartByUserId(id).then((result) => {
       res.status(result.status).json(result.data);
     });
   });

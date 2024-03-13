@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
       payed: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
+        defaultValue: false,  
       },  
     },
     { underscored: true }

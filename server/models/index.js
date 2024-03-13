@@ -64,6 +64,7 @@ db.user.hasMany(db.cart, {
 db.product.belongsToMany(db.cart, { through: db.cartRow });
 db.cart.belongsToMany(db.product, { through: db.cartRow });
 
+
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 

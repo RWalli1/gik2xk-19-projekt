@@ -1,28 +1,27 @@
 const validate = require('validate.js');
 const router = require('express').Router();
 const db = require("../models");
+const cartService = require('../services/cartService');
+
+// add product to cart /cart/addProduct 
 
 
-
-// add product to cart 
-
-
-router.post('/:id/addProduct', (req, res) => {
-    const product = req.body;
-    const id = req.params.id;
-  
-    cartService.addProduct(id, product).then((result) => {
+router.post('/:id/addProduct', (req, res) => { // produkt blir en cartRow i när 
+  const cartRow = req.body; // Example adjustment
+    console.log(`new cart row =  ${cartRow}`);
+    cartService.addProduct(cartRow).then((result) => {
       res.status(result.status).json(result.data);
     });
   });
 
-// read
-router.get("/", (req, res)=>{
-    const id = req.params.id;
-    cartService.getById(id).then((result) => { // fixa cartservice
-      res.status(result.status).json(result.data);
+
+
+// get all
+  router.get('/', async (req, res) => {
+    db.cart.findAll().then((result) => {
+        res.send(result);
     });
-  });
+});
 
 // create
 router.post('/', (req, res) => {
@@ -50,3 +49,6 @@ router.delete('/:id', (req, res) => {
       res.status(result.status).json(result.data);
     });
   });
+
+
+  module.exports = router;
