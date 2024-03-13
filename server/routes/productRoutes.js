@@ -5,9 +5,9 @@ const productService = require('../services/productService');
 
 // ADD UPUT 
 
-router.put('/', (req, res) => {
+router.put('/:id', (req, res) => {
   const product = req.body;
-  const id = product.id;
+  const id = req.params.id;
 
   productService.update(product, id).then((result) => {
     res.status(result.status).json(result.data);
@@ -15,8 +15,8 @@ router.put('/', (req, res) => {
 });
 
 // delete
-router.delete('/', (req, res) => {
-  const id = req.body.id;
+router.delete('/:id', (req, res) => {
+  const id = req.params.id;
   productService.destroy(id).then((result) => {
     res.status(result.status).json(result.data);
   });

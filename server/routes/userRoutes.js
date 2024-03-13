@@ -1,6 +1,7 @@
 const validate = require('validate.js');
 const router = require('express').Router();
 const db = require("../models");
+const cartService = require('../services/cartService');
 
 const constraints = {
   firstname: {
@@ -41,6 +42,15 @@ const constraints = {
   },
 };
 
+// GET /id/getCart
+router.get("/:id/getCart", (req, res) => {
+    const id = req.params.id;
+    cartService.getCartByUser(id).then((result) => {
+      res.status(result.status).json(result.data);
+    });
+  });
+
+
 
 // GET /users
 router.get('/', async (req, res) => {
@@ -63,10 +73,10 @@ router.post('/', async (req, res) => {
 });
 
 // PUT /users/
-router.put('/', async (req, res) => {
+router.put('/:id', async (req, res) => {
     const user = req.body;
     const invalidData = validate(user, constraints);
-    const id = user.id;
+    const id = req.params.id;
     if (invalidData || !id) {
         res.status(400).json(invalidData || 'Id är obligatoriskt.');
     } else {
@@ -84,8 +94,8 @@ router.put('/', async (req, res) => {
 
 // DELETE /users/
 
-router.delete('/', (req, res) => {
-    const id = req.body.id;
+router.delete('/:id', (req, res) => {
+    const id = req.params.id;
     db.user.destroy({ where: { id: id } }).then(() => {
         res.json(`Användare raderades`); 
     });
