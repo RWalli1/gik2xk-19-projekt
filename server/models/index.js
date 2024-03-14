@@ -60,9 +60,10 @@ db.user.hasMany(db.cart, {
   onDelete: "CASCADE",
 });
 
-// cart row 
-db.product.belongsToMany(db.cart, { through: db.cartRow });
+// cart row  
 db.cart.belongsToMany(db.product, { through: db.cartRow });
+db.product.belongsToMany(db.cart, { through: db.cartRow });
+
 
 
 db.sequelize = sequelize;

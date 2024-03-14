@@ -1,5 +1,6 @@
 const db = require("../models");
 const validate = require("validate.js");
+const productService = require('../services/productService');
 
 const {
     createResponseSuccess,
@@ -32,19 +33,41 @@ async function addProduct(cartRow)
   }
 }
 
-  async function getCartByUserId(id) { 
-  
-    try {
-      const [cart,isCreated] = await db.cart.findOrCreate({
-        
-       where:  {userId: id}
-       //include: [db.user, db.cartRow]
-      });
-      return createResponseSuccess(cart); // _formatpost
-    } catch (error) {
-      return createResponseError(error.status, error.message);
+async function getCartByUserId(id) { 
+  console.log(`Fetching cart for user id: ${id}`); // Log the user id
+  try {
+    const cart = await db.cart.findOne({
+      where:  {userId: id}
+    }); 
+    if (!cart) {
+      console.log(`No cart found for user id: ${id}`); // Log if no cart is found
+      return createResponseError(404, 'Cart not found');
     }
+    console.log(`current cart id: ${cart.id}`); 
+    const cartRows = await db.cartRow.findAll({ 
+      where: { cartId: cart.id }
+      // include other associated models here as needed, for example:
+    });
+    const cartWithRows = {
+      cartId: cart.id,
+      cartRows: [cartRows]
+    };
+    return createResponseSuccess(cartWithRows); // _formatpost
+  } catch (error) {
+    console.log(`Error fetching cart for user id: ${id}`, error); // Log any errors
+    return createResponseError(error.status, error.message);
   }
+}
+
+// get all 
+async function getAll() {
+  try {
+    const allCarts = await db.cart.findAll();
+    return createResponseSuccess(allCarts);
+  } catch (error) {
+    return createResponseError(error.status, error.message);
+  }
+}
 
 
   // create
@@ -61,6 +84,8 @@ async function addProduct(cartRow)
       return createResponseError(error.status, error.message);
     }
   }
+
+
 
   // update
   async function update(cart, id) {
@@ -100,6 +125,30 @@ async function addProduct(cartRow)
     }
   }
 
+
+function _addProductsToCart(cart,products)
+{
+  if (products)
+  {
+    products.forEach(async (product) => {
+      await product.addRating(_formatProduct(product));
+    });
+  }
+}
+
+  function _formatCart(cart,cartRows)
+  {
+    cleanCart = {
+      payed: cart.payed,
+      cartItems: [],
+      
+    };
+
+    cart.cartItems.map((cartItem) => {
+      cleanCart.cartItems = [rating.rating, ...cleanProduct.ratings];
+    });
+    return cleanCart;
+  }
   
 
   module.exports = {

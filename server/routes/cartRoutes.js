@@ -22,6 +22,7 @@ router.post('/addProduct', (req, res) => { // produkt blir en cartRow i när
     });
 });
 
+
 // create
 router.post('/', (req, res) => {
     const cart = req.body;

@@ -20,7 +20,7 @@ const constraints = {
 async function getAll() {
   try {
     const allProducts = await db.product.findAll({include: [db.rating]});
-    return createResponseSuccess(allProducts); // mappa och _formatpost
+    return createResponseSuccess(allProducts.map((product) => _formatProduct(product)));
   } catch (error) {
     return createResponseError(error.status, error.message);
   }
@@ -65,7 +65,7 @@ async function create(product) {
     //lägg till eventuella ratings
     // await _addTagToPost(newProduct, product.tags);
 
-    return createResponseSuccess(newProduct);
+    return createResponseSuccess(_formatProduct(newProduct));
   } catch (error) {
     return createResponseError(error.status, error.message);
   }
@@ -110,9 +110,6 @@ async function destroy(id) {
 
 function _formatProduct(product) {
   const cleanProduct = {
-      //id: product.id,
-      //createdAt: product.createdAt,
-      //updatedAt: product.updatedAt,
       title: product.title,
       description: product.description,
       price: product.price,
@@ -135,7 +132,7 @@ function _formatProduct(product) {
   };
 
 
-async function _AddRatingToProduct(product,ratings)
+async function _addRatingsToProduct(product,ratings)
 {
   
   if (ratings)
@@ -149,6 +146,7 @@ async function _AddRatingToProduct(product,ratings)
 }
   
 module.exports = {
+  _formatProduct,
   addRating,
   getById,
   getAll,
