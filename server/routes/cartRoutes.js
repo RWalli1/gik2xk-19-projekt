@@ -6,7 +6,7 @@ const cartService = require('../services/cartService');
 // add product to cart /cart/addProduct 
 
 
-router.post('/:id/addProduct', (req, res) => { // produkt blir en cartRow i när 
+router.post('/addProduct', (req, res) => { // produkt blir en cartRow i när 
   const cartRow = req.body; // Example adjustment
     cartService.addProduct(cartRow).then((result) => {
       res.status(result.status).json(result.data);

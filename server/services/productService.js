@@ -35,7 +35,7 @@ async function getById(id) {
       
       include: [db.rating], // har inte fixat rating än. 
     });
-    return createResponseSuccess(product); // _formatpost
+    return createResponseSuccess(_formatProduct(product)); // _formatpost
   } catch (error) {
     return createResponseError(error.status, error.message);
   }
@@ -108,6 +108,46 @@ async function destroy(id) {
   }
 }
 
+function _formatProduct(product) {
+  const cleanProduct = {
+      //id: product.id,
+      //createdAt: product.createdAt,
+      //updatedAt: product.updatedAt,
+      title: product.title,
+      description: product.description,
+      price: product.price,
+      imageUrl: product.imageUrl,
+      averageRating: 0,
+      ratings: [],
+     
+    
+  };
+  if (product.ratings)
+  {
+    let sum = 0;
+    product.ratings.map((rating) => {
+      sum += rating.rating;
+      cleanProduct.ratings = [rating.rating, ...cleanProduct.ratings];
+    });
+    cleanProduct.averageRating = product.ratings.length > 0 ? Number((sum / product.ratings.length).toFixed(1)) : 0;
+  }
+  return cleanProduct;
+  };
+
+
+async function _AddRatingToProduct(product,ratings)
+{
+  
+  if (ratings)
+  {
+    ratings.forEach(async (rating) => {
+      const ratingId = rating.id;
+      await product.addRating(ratingId);
+    });
+    
+  }
+}
+  
 module.exports = {
   addRating,
   getById,
