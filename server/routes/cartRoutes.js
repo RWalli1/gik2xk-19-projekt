@@ -8,7 +8,6 @@ const cartService = require('../services/cartService');
 
 router.post('/:id/addProduct', (req, res) => { // produkt blir en cartRow i när 
   const cartRow = req.body; // Example adjustment
-    console.log(`new cart row =  ${cartRow}`);
     cartService.addProduct(cartRow).then((result) => {
       res.status(result.status).json(result.data);
     });

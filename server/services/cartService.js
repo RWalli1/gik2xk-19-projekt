@@ -22,7 +22,7 @@ const {
 async function addProduct(cartRow)
 {
   try {
-    const newCartRow = await db.cartRow.create({cartRow});
+    const [newCartRow,wasCreated] = await db.cartRow.upsert(cartRow);
 
     return createResponseSuccess(newCartRow); // _formatpost
   } catch (error) {

@@ -60,7 +60,7 @@ db.user.hasMany(db.cart, {
   onDelete: "CASCADE",
 });
 
-// cart row
+// cart row 
 db.product.belongsToMany(db.cart, { through: db.cartRow });
 db.cart.belongsToMany(db.product, { through: db.cartRow });
 
