@@ -130,20 +130,6 @@ function _formatProduct(product) {
   }
   return cleanProduct;
   };
-
-
-async function _addRatingsToProduct(product,ratings)
-{
-  
-  if (ratings)
-  {
-    ratings.forEach(async (rating) => {
-      const ratingId = rating.id;
-      await product.addRating(ratingId);
-    });
-    
-  }
-}
   
 module.exports = {
   _formatProduct,

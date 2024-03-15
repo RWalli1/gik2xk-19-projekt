@@ -17,8 +17,8 @@ router.post('/addProduct', (req, res) => { // produkt blir en cartRow i när
 
 // get all
   router.get('/', async (req, res) => {
-    db.cart.findAll().then((result) => {
-        res.send(result);
+    cartService.getAll().then((result) => {
+      res.status(result.status).json(result.data);
     });
 });
 

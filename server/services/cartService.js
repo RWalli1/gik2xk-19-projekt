@@ -48,7 +48,7 @@ async function getCartByUserId(id) {
     }
     console.log(`current cart id: ${cart.id}`); 
 
-    return createResponseSuccess(cart); // _formatcart
+    return createResponseSuccess(_formatCart(cart)); // _formatcart
   } catch (error) {
     console.log(`Error fetching cart for user id: ${id}`, error); // Log any errors
     return createResponseError(error.status, error.message);
@@ -58,8 +58,12 @@ async function getCartByUserId(id) {
 // get all 
 async function getAll() {
   try {
-    const allCarts = await db.cart.findAll();
-    return createResponseSuccess(allCarts);
+    const allCarts = await db.cart.findAll({
+      include: [
+        db.product
+      ]
+    });
+    return createResponseSuccess(allCarts.map((cart) => _formatCart(cart)));
   } catch (error) {
     return createResponseError(error.status, error.message);
   }
@@ -122,32 +126,33 @@ async function getAll() {
   }
 
 
-function _addProductsToCart(cart,products)
-{
-  if (products)
-  {
-    products.forEach(async (product) => {
-      await product.addRating(_formatProduct(product));
-    });
-  }
-}
-
-  function _formatCart(cart,cartRows)
+  function _formatCart(cart)
   {
     cleanCart = {
       payed: cart.payed,
       cartItems: [],
       
     };
-
-    cart.cartItems.map((cartItem) => {
-      cleanCart.cartItems = [rating.rating, ...cleanProduct.ratings];
-    });
+    if (cart.products)
+    {
+      cart.products.map((cartItem) => {
+        const newCartItem = {
+          title: cartItem.title,
+          description: cartItem.description,
+          price: cartItem.price,
+          imageUrl: cartItem.imageUrl,
+          amount: cartItem.cartRow.amount
+        };
+        cleanCart.cartItems = [newCartItem, ...cleanCart.cartItems];
+      });
+      
+    }
     return cleanCart;
   }
   
 
   module.exports = {
+    getAll,
     addProduct,
     getCartByUserId,
     create,
