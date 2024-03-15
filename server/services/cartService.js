@@ -37,22 +37,18 @@ async function getCartByUserId(id) {
   console.log(`Fetching cart for user id: ${id}`); // Log the user id
   try {
     const cart = await db.cart.findOne({
-      where:  {userId: id}
+      where:  {userId: id},
+      include: [
+        db.product
+      ]
     }); 
     if (!cart) {
       console.log(`No cart found for user id: ${id}`); // Log if no cart is found
       return createResponseError(404, 'Cart not found');
     }
     console.log(`current cart id: ${cart.id}`); 
-    const cartRows = await db.cartRow.findAll({ 
-      where: { cartId: cart.id }
-      // include other associated models here as needed, for example:
-    });
-    const cartWithRows = {
-      cartId: cart.id,
-      cartRows: [cartRows]
-    };
-    return createResponseSuccess(cartWithRows); // _formatpost
+
+    return createResponseSuccess(cart); // _formatcart
   } catch (error) {
     console.log(`Error fetching cart for user id: ${id}`, error); // Log any errors
     return createResponseError(error.status, error.message);
