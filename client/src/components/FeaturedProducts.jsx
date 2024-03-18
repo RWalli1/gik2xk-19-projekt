@@ -1,8 +1,20 @@
 import ProductItemMedium from "./ProductItemMedium";
 import { Grid, Typography } from "@mui/material";
+import { getAll } from "../services/ProductService";
+import { useEffect, useState } from "react";
 
 function FeaturedProducts() {
-  const products = [
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    getAll().then((products) => setProducts(products));
+  }, []);
+
+  let firstThreeProducts = {};
+  if (products.length >= 3) {
+    firstThreeProducts = products.slice(0, 3); // just take the first three as an example.
+  }
+
+  const testFeaturedProducts = [
     {
       title: "Elias adventure 7",
       description: "äventyr",
@@ -34,7 +46,14 @@ function FeaturedProducts() {
 
   return (
     <>
-      <Typography variant="h5" sx={{ textAlign: "center" }}>
+      <Typography
+        variant="h5"
+        sx={{
+          textAlign: "center",
+          margin: "2rem",
+          fontWeight: "bold",
+        }}
+      >
         Featured Products
       </Typography>
 
@@ -46,8 +65,8 @@ function FeaturedProducts() {
         rowSpacing={5}
         //columnSpacing={{ xs: 3, sm: 2, md: 3 }}
       >
-        {products?.length > 0 ? (
-          products
+        {firstThreeProducts?.length > 0 ? (
+          firstThreeProducts
             //.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
             .map((product) => (
               <Grid item>

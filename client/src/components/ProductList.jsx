@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 
 function ProductList() {
   const [products, setProducts] = useState([]);
-  //getAll().then((products) => console.log(products));
 
   useEffect(() => {
     getAll().then((products) => setProducts(products));
