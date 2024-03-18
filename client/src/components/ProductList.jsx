@@ -1,10 +1,19 @@
 import ProductItemSmall from "./ProductItemSmall";
 import { Grid } from "@mui/material";
+import { getAll } from "../services/ProductService";
+import { useEffect, useState } from "react";
 //import Item from "@mui/item";
 
 function ProductList() {
-  const products = [
+  const [products, setProducts] = useState([]);
+  //getAll().then((products) => console.log(products));
+
+  useEffect(() => {
+    getAll().then((products) => setProducts(products));
+  }, []);
+  const testProducts = [
     {
+      id: 1,
       title: "Elias adventure 7",
       description: "äventyr",
       price: 399,
@@ -14,6 +23,7 @@ function ProductList() {
       ratings: [3, 3],
     },
     {
+      id: 2,
       title: "Raman adventure 7",
       description: "äventyr",
       price: 399,

@@ -5,24 +5,21 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { Link } from "react-router-dom";
 import Rating from "@mui/material/Rating";
 import StarIcon from "@mui/icons-material/Star";
-import { Link } from "react-router-dom";
 
-//import Rating from " @mui.com/material-ui/react-rating/";
-
-function ProductItemSmall({ product }) {
+function ProductItemMedium({ product }) {
   return (
     <>
       <Card
         sx={{
-          minWidth: "30rem",
-          maxWidth: "50rem",
-          minHeight: "5rem",
+          minWidth: "37rem",
+          maxWidth: "60rem",
         }}
       >
         <CardMedia
-          sx={{ height: 300 }}
+          sx={{ height: 550 }}
           image={product.imageUrl}
           title={product.title}
         />
@@ -52,4 +49,4 @@ function ProductItemSmall({ product }) {
   );
 }
 
-export default ProductItemSmall;
+export default ProductItemMedium;

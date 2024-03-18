@@ -110,6 +110,7 @@ async function destroy(id) {
 
 function _formatProduct(product) {
   const cleanProduct = {
+      id: product.id,
       title: product.title,
       description: product.description,
       price: product.price,

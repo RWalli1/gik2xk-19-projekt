@@ -1,5 +1,9 @@
 function Cart() {
-  return <h2> Cart</h2>;
+  return (
+    <>
+      <Typography sx={{ textAlign: "center" }}>Cart</Typography>
+    </>
+  );
 }
 
 export default Cart;
