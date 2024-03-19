@@ -2,6 +2,7 @@ import ProductItemMedium from "./ProductItemMedium";
 import { Grid, Typography } from "@mui/material";
 import { getAll } from "../services/ProductService";
 import { useEffect, useState } from "react";
+import ProductRatingList from "../components/ProductRatingList";
 
 function FeaturedProducts() {
   const [products, setProducts] = useState([]);
@@ -71,6 +72,7 @@ function FeaturedProducts() {
             .map((product) => (
               <Grid item>
                 <ProductItemMedium product={product} />
+                
               </Grid>
             ))
         ) : (

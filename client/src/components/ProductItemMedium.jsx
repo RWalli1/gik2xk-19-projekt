@@ -18,7 +18,7 @@ function ProductItemMedium({ product }) {
     <>
       <Card>
         <CardMedia
-          sx={{ height: 600 }}
+          sx={{ height: 450 }}
           image={product.imageUrl}
           title={product.title}
         />
