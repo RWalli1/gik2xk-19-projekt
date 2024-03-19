@@ -21,7 +21,7 @@ function ProductItemSmall({ product }) {
     <>
       <Card>
         <CardMedia
-          sx={{ height: 50 }}
+          sx={{ height: 300 }}
           image={product.imageUrl}
           title={product.title}
         />

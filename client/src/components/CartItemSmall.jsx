@@ -16,29 +16,26 @@ import { Grid } from "@mui/material";
 function CartItemSmall({ cartItem }) {
   return (
     <>
+      <Card>
+        <CardMedia
+          sx={{ height: 100, width: 100 }}
+          image={cartItem.imageUrl}
+          title={cartItem.title}
+        />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            <Link to={`/products/${cartItem.id}`}>{cartItem.title}</Link>
+          </Typography>
 
-      
-        <Card>
-          <CardMedia
-            sx={{ height: 300 }}
-            image={cartItem.imageUrl}
-            title={cartItem.title}
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              <Link to={`/products/${cartItem.id}`}>{cartItem.title}</Link>
-            </Typography>
-
-            <Typography gutterBottom variant="body2" component="div">
-              {`$${cartItem.price}`}
-            </Typography>
-          </CardContent>
           <Typography gutterBottom variant="body2" component="div">
             {`$${cartItem.price}`}
           </Typography>
-          <CardActions></CardActions>
-        </Card>
-      
+        </CardContent>
+        <Typography gutterBottom variant="body2" component="div">
+          {`Amount: ${cartItem.amount}`}
+        </Typography>
+        <CardActions></CardActions>
+      </Card>
     </>
   );
 }
