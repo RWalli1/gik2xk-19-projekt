@@ -1,20 +1,14 @@
 import ProductItemSmall from "./ProductItemSmall";
 import { Grid } from "@mui/material";
-import { getAll, getOne } from "../services/ProductService";
+import { getAll } from "../services/ProductService";
 import { useEffect, useState } from "react";
-//import Item from "@mui/item";
 
 function ProductList() {
   const [products, setProducts] = useState([]);
-  const [aProduct, setAProducts] = useState([]);
 
   useEffect(() => {
     getAll().then((products) => setProducts(products));
   }, []);
-  useEffect(() => {
-    getOne(1).then((aProduct) => setAProducts(aProduct));
-  }, []);
-  console.log(aProduct);
 
   const testProducts = [
     {

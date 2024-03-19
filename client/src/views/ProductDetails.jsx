@@ -11,7 +11,6 @@ function ProductDetails() {
   useEffect(() => {
     getOne(id).then((product) => setProduct(product));
   }, [id]);
-  console.log(product);
 
   const testProduct = {
     title: "Elias adventure 7",
@@ -21,7 +20,6 @@ function ProductDetails() {
     averageRating: 1.3,
     ratings: [3, 3],
   };
-  //console.log(product.ratings);
 
   return (
     <>

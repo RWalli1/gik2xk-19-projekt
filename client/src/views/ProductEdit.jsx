@@ -2,7 +2,7 @@ import DeleteForever from "@mui/icons-material/DeleteForever";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getAll, getOne } from "../services/ProductService";
+import { getAll, getOne, update, create, remove } from "../services/ProductService";
 
 import {
   Box,
@@ -12,9 +12,9 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-//import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-//import DeleteIcon from '@mui/icons-material/Delete';
-//import SaveIcon from '@mui/icons-material/Save';
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import DeleteIcon from "@mui/icons-material/Delete";
+import SaveIcon from "@mui/icons-material/Save";
 
 function ProductEdit() {
   const { id } = useParams();
@@ -47,9 +47,9 @@ function ProductEdit() {
   function onSave() {
     if (product.id === 0) {
       create(product).then((response) => {
-        navigate("/", {
+        navigate("/products/", {
           replace: true,
-          state: { message: `Inlägget ${response.title} skapades.` },
+          state: { message: `The product ${response.title} was created.` },
         });
       });
     } else {
@@ -58,10 +58,10 @@ function ProductEdit() {
       );
     }
   }
-  function onRatingAdd(tagString) {
+  function onRatingAdd(ratingString) {
     //splitta arrayen vid kommatecken
-    const ratingArray = tagString.split(',');
-    //trimma whitespace runt taggar
+    const ratingArray = ratingString.split(",");
+    //trimma whitespace runt ratings
     const uniqueAndTrimmedRatings = ratingArray
       .map((rating) => rating.trim())
       .filter((rating) => !product.ratings.includes(rating));
@@ -72,16 +72,24 @@ function ProductEdit() {
     //spara befintligt inlägg med nya ratings-arrayen till state.
     setProduct({ ...product, ratings: mergedArray });
   }
+  function onRatingDelete(ratingToDelete) {
+    const newRatings = product.ratings.filter(
+      (rating) => rating !== ratingToDelete
+    );
+
+    setProduct({ ...product, ratings: newRatings });
+  }
+
   function onDelete() {
     remove(product.id).then((response) =>
-      navigate("/", { replace: true, state: response })
+      navigate(`/products/`, { replace: true, state: response })
     );
   }
 
   return (
     <Container maxWidth="lg">
       <Typography variant="h4" component="h2">
-        {product.id ? "Ändra inlägg" : "Skapa inlägg"}
+        {product.id ? "Edit product" : "Create product"}
       </Typography>
       <Box mt={4}>
         <form>
@@ -93,7 +101,7 @@ function ProductEdit() {
               value={product.title}
               name="title"
               id="title"
-              label="Titel"
+              label="Title"
             />
           </Box>
           <Box>
@@ -101,12 +109,23 @@ function ProductEdit() {
               fullWidth
               margin="normal"
               onChange={onChange}
-              value={product.body}
+              value={product.description}
               multiline
               minRows={5}
-              name="body"
-              id="body"
-              label="Innehåll"
+              name="description"
+              id="description"
+              label="Description"
+            />
+          </Box>
+          <Box>
+            <TextField
+              fullWidth
+              margin="normal"
+              onChange={onChange}
+              value={product.price}
+              name="price"
+              id="price"
+              label="Price ($)"
             />
           </Box>
           <Box>
@@ -117,23 +136,21 @@ function ProductEdit() {
               value={product.imageUrl}
               name="imageUrl"
               id="imageUrl"
-              label="Sökväg till bild"
+              label="URL to image"
             />
           </Box>
           <Box mt={1}>
             {product?.ratings?.length > 0 &&
-              product.ratings.map((tag) => (
+              product.ratings.map((rating) => (
                 <Chip
                   sx={{ mr: 1 }}
-                  onDelete={() => onTagDelete(tag)}
-                  key={tag}
-                  label={tag}
+                  onDelete={() => onRatingDelete(rating)}
+                  key={rating}
+                  label={rating}
                 />
               ))}
           </Box>
-          <Box mt={2}>
-            <TagField onSave={onRatingAdd} />
-          </Box>
+          <Box mt={2}>{/*<TagField onSave={onRatingAdd} />*/}</Box>
           <Box display="flex" mt={2}>
             <Box flexGrow={1}>
               <Button
@@ -142,7 +159,7 @@ function ProductEdit() {
                 variant="contained"
                 onClick={() => navigate(-1)}
               >
-                Tillbaka
+                back
               </Button>
               {id && (
                 <Button
@@ -151,7 +168,7 @@ function ProductEdit() {
                   variant="contained"
                   color="error"
                 >
-                  Ta bort
+                  Delete
                 </Button>
               )}
             </Box>
@@ -161,7 +178,7 @@ function ProductEdit() {
               variant="contained"
               color="success"
             >
-              Spara
+              Save
             </Button>
           </Box>
         </form>
