@@ -26,7 +26,7 @@ function CartItemSmall({ cartItem }) {
           title={cartItem.title}
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div" width={"70%"}>
+          <Typography gutterBottom variant="body1" component="div" >
             <Link to={`/products/${cartItem.productId}`}>{cartItem.title}</Link>
           </Typography>
 
@@ -38,7 +38,6 @@ function CartItemSmall({ cartItem }) {
         <Typography gutterBottom variant="body2" component="div">
           {`Amount: ${cartItem.amount}`}
         </Typography>
-        <CardActions></CardActions>
       </Card>
     </>
   );

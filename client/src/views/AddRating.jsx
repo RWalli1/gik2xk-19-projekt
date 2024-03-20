@@ -2,8 +2,9 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { getAll, getOne } from "../services/ProductService";
 import { useEffect, useState } from "react";
 import { Typography } from "@mui/material";
-import ProductItemMedium from "../components/ProductItemMedium";
-
+import ProductRateMedium from "../components/ProductRateMedium";
+import Rating from "@mui/material/Rating";
+import List from "@mui/material/List";
 import Box from "@mui/material/Box";
 
 function AddRating() {
@@ -13,29 +14,35 @@ function AddRating() {
     getOne(id).then((product) => setProduct(product));
   }, [id]);
 
+  
+
   return (
     <>
-      <Typography
-        variant="h5"
-        sx={{
-          textAlign: "center",
-          margin: "2rem",
-        }}
-      >
-        Add Rating
-      </Typography>
-
-      <Box
+      <List
         sx={{
           display: "flex",
+          flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          columnSpacing: 5,
-          rowSpacing: 5,
         }}
       >
-        <ProductItemMedium product={product} />
-      </Box>
+        <Box>
+          <Typography
+            variant="h5"
+            sx={{
+              textAlign: "center",
+            }}
+          >
+            Add Rating
+          </Typography>
+        </Box>
+        <Box sx={{ margin: "1 rem" }}>
+          <Rating name="half-rating" defaultValue={0} precision={0.5} />
+        </Box>
+        <Box>
+          <ProductRateMedium product={product} />
+        </Box>
+      </List>
     </>
   );
 }
