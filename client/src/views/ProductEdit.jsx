@@ -59,6 +59,8 @@ function ProductEdit() {
         });
       });
     } else {
+      console.log("new product:");
+      console.log(product);
       update(product).then((response) =>
         navigate(`/products/${product.id}`, { replace: true, state: response })
       );
@@ -79,11 +81,10 @@ function ProductEdit() {
     setProduct({ ...product, ratings: mergedArray });
   }
   function onRatingDelete(ratingToDelete) {
-    const newRatings = product.ratings.filter(
-      (rating) => rating !== ratingToDelete
-    );
-
-    setProduct({ ...product, ratings: newRatings });
+    let testRatings = product.ratings;
+    testRatings.splice(ratingToDelete, 1);
+    setProduct({ ...product, ratings: testRatings });
+    console.log(testRatings);
   }
 
   function onDelete() {
@@ -145,17 +146,7 @@ function ProductEdit() {
               label="URL to image"
             />
           </Box>
-          <Box mt={1}>
-            {product?.ratings?.length > 0 &&
-              product.ratings.map((rating) => (
-                <Chip
-                  sx={{ mr: 1 }}
-                  onDelete={() => onRatingDelete(rating)}
-                  key={rating}
-                  label={rating}
-                />
-              ))}
-          </Box>
+
           <Box mt={2}>{/*<TagField onSave={onRatingAdd} />*/}</Box>
           <Box display="flex" mt={2}>
             <Box flexGrow={1}>

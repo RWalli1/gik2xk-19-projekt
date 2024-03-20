@@ -84,7 +84,7 @@ async function update(product, id) {
     if (!existingProduct) {
       return createResponseError(404, "Hittade ingen produkt att uppdatera.");
     }
-    //await _addTagToPost(existingPost, product.tags); // rating iställe
+   //await _addRatingToProduct(existingProduct, product.ratings); // rating iställe
     await db.product.update(product, {
       where: { id },
     });
@@ -107,6 +107,19 @@ async function destroy(id) {
     return createResponseError(error.status, error.message);
   }
 }
+
+async function _addRatingToProduct(product, ratings) {
+  await db.rating.destroy({ where: { productId: product.id } });
+
+  if (ratings) {
+    ratings.forEach(async (rating) => {
+      const ratingId = await db.rating.create(rating);
+      await product.addRating(ratingId);
+    });
+  }
+}
+
+
 
 function _formatProduct(product) {
   const cleanProduct = {
