@@ -11,6 +11,7 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AddRating from "./views/AddRating.jsx";
 
+
 const router = createBrowserRouter([
   {
     path: "/",

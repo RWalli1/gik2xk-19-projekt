@@ -39,3 +39,4 @@ function AddRating() {
     </>
   );
 }
+export default AddRating;
