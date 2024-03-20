@@ -11,6 +11,7 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { Box, Grid, useMediaQuery } from "@mui/material";
 import ProductRating from "./ProductRating";
 import Rating from "@mui/material/Rating";
+import AddToCart from "./AddToCart";
 
 function ProductItemLarge({ product }) {
   console.log(product);
@@ -42,12 +43,15 @@ function ProductItemLarge({ product }) {
             </Typography>
           </CardContent>
           <CardActions>
-            <Button size="small">
-              <AddShoppingCartIcon />
-            </Button>
+            <AddToCart product={product} />
             <Link to={`/products/${product.id}/edit`}>
               <EditIcon />
             </Link>
+            <Typography>
+              <Link
+                to={`/products/${product.id}/addRating`}
+              >{`Betygsätt produkten`}</Link>
+            </Typography>
           </CardActions>
         </Card>
       </Grid>

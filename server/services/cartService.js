@@ -20,14 +20,26 @@ const {
       },
     },
   };
-
-
-async function addProduct(cartRow)
-{
+async function addProduct(cartRow) {
   try {
-    const [newCartRow,wasCreated] = await db.cartRow.upsert(cartRow);
+    // Attempt to find the existing cartRow with the specified cartId and productId
+    const existingCartRow = await db.cartRow.findOne({
+      where: {
+        cartId: cartRow.cartId,
+        productId: cartRow.productId,
+      },
+    });
 
-    return createResponseSuccess(newCartRow); // _formatpost
+    if (existingCartRow) {
+      // If an existing cartRow is found, increment its amount
+      const updatedAmount = existingCartRow.amount + cartRow.amount;
+      await existingCartRow.update({ amount: updatedAmount });
+      return createResponseSuccess(existingCartRow);
+    } else {
+      // If no existing cartRow is found, create a new one
+      const newCartRow = await db.cartRow.create(cartRow);
+      return createResponseSuccess(newCartRow);
+    }
   } catch (error) {
     return createResponseError(error.status, error.message);
   }
@@ -129,6 +141,7 @@ async function getAll() {
   function _formatCart(cart)
   {
     cleanCart = {
+      id: cart.id,
       payed: cart.payed,
       cartItems: [],
       
@@ -137,6 +150,7 @@ async function getAll() {
     {
       cart.products.map((cartItem) => {
         const newCartItem = {
+          productId: cartItem.id,
           title: cartItem.title,
           description: cartItem.description,
           price: cartItem.price,

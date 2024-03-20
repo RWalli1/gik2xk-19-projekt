@@ -12,13 +12,14 @@ import EditIcon from "@mui/icons-material/Edit";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ProductRating from "./ProductRating";
+import AddToCart from "./AddToCart";
 
 function ProductItemMedium({ product }) {
   return (
     <>
       <Card>
         <CardMedia
-          sx={{ height: 450 }}
+          sx={{ height: 400 }}
           image={product.imageUrl}
           title={product.title}
         />
@@ -31,9 +32,7 @@ function ProductItemMedium({ product }) {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small">
-            <AddShoppingCartIcon />
-          </Button>
+          <AddToCart product={product} />
           <ProductRating product={product} />
         </CardActions>
       </Card>

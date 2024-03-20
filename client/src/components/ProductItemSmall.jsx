@@ -13,6 +13,7 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ProductRating from "./ProductRating";
+import AddToCart from "./AddToCart";
 
 //import Rating from " @mui.com/material-ui/react-rating/";
 
@@ -35,9 +36,7 @@ function ProductItemSmall({ product }) {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small">
-            <AddShoppingCartIcon />
-          </Button>
+          <AddToCart product={product} />
 
           <ProductRating product={product} />
         </CardActions>

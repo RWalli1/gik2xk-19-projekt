@@ -41,7 +41,7 @@ function Navbar() {
         </ListItem>
 
         <ListItem sx={{ justifyContent: "center" }}>
-          <Link to="/user/:id/getCart/">
+          <Link to="/user/1/getCart/">
             <ShoppingCartIcon />
           </Link>
         </ListItem>

@@ -12,25 +12,29 @@ import EditIcon from "@mui/icons-material/Edit";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import ProductRating from "./ProductRating";
 import { Grid } from "@mui/material";
+import Box from "@mui/material/Box";
+
 
 function CartItemSmall({ cartItem }) {
   return (
     <>
-      <Card>
+      <Card sx={{ display: "flex" , justifyContent:"space-between" }}>
+        <Box sx={{ display: "flex"}}>
         <CardMedia
           sx={{ height: 100, width: 100 }}
           image={cartItem.imageUrl}
           title={cartItem.title}
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            <Link to={`/products/${cartItem.id}`}>{cartItem.title}</Link>
+          <Typography gutterBottom variant="h5" component="div" width={"70%"}>
+            <Link to={`/products/${cartItem.productId}`}>{cartItem.title}</Link>
           </Typography>
 
           <Typography gutterBottom variant="body2" component="div">
             {`$${cartItem.price}`}
           </Typography>
         </CardContent>
+        </Box>
         <Typography gutterBottom variant="body2" component="div">
           {`Amount: ${cartItem.amount}`}
         </Typography>

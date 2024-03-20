@@ -2,7 +2,13 @@ import DeleteForever from "@mui/icons-material/DeleteForever";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getAll, getOne, update, create, remove } from "../services/ProductService";
+import {
+  getAll,
+  getOne,
+  update,
+  create,
+  remove,
+} from "../services/ProductService";
 
 import {
   Box,

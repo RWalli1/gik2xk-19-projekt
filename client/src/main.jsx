@@ -9,6 +9,7 @@ import Carts from "./views/Carts.jsx";
 import Home from "./views/Home.jsx";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import AddRating from "./views/AddRating.jsx";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
       {
         path: "/user/:id/getCart/",
         element: <Carts />,
+      },
+      {
+        path: "/products/:id/addRating/",
+        element: <AddRating />,
       },
     ],
   },
