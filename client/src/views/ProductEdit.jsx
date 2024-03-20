@@ -21,6 +21,10 @@ import {
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SaveIcon from "@mui/icons-material/Save";
+import InputAdornment from "@mui/material/InputAdornment";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
 
 function ProductEdit() {
   const { id } = useParams();
@@ -125,6 +129,15 @@ function ProductEdit() {
             />
           </Box>
           <Box>
+          <FormControl fullWidth sx={{ m: 1 }}>
+          <InputLabel htmlFor="outlined-adornment-amount">Price</InputLabel>
+          <OutlinedInput
+            id="outlined-adornment-amount"
+            startAdornment={<InputAdornment position="start">$</InputAdornment>}
+            label="Price"
+            value={product.price}
+          />
+        </FormControl>
             <TextField
               fullWidth
               margin="normal"
