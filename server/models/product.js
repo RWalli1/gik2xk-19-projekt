@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       description: {
-        type: DataTypes.STRING(100),
+        type: DataTypes.TEXT, 
         allowNull: false,
       },
       price: {

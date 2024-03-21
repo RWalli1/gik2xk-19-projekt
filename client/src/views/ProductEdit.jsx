@@ -57,7 +57,7 @@ function ProductEdit() {
   function onSave() {
     if (product.id === 0) {
       create(product).then((response) => {
-        navigate("/products/", {
+        navigate(`/products/`, {
           replace: true,
           state: { message: `The product ${response.title} was created.` },
         });
@@ -129,19 +129,20 @@ function ProductEdit() {
             />
           </Box>
           <Box>
-          <FormControl fullWidth>
-          <InputLabel htmlFor="outlined-adornment-amount">Price</InputLabel>
-          <OutlinedInput
-            name="price"
-            id="price"
-            onChange={onChange}
-            margin="normal"
-            startAdornment={<InputAdornment position="start">$</InputAdornment>}
-            label="Price"
-            value={product.price}
-          />
-        </FormControl>
-
+            <FormControl fullWidth>
+              <InputLabel htmlFor="outlined-adornment-amount">Price</InputLabel>
+              <OutlinedInput
+                name="price"
+                id="price"
+                onChange={onChange}
+                margin="normal"
+                startAdornment={
+                  <InputAdornment position="start">$</InputAdornment>
+                }
+                label="Price"
+                value={product.price}
+              />
+            </FormControl>
           </Box>
           <Box>
             <TextField

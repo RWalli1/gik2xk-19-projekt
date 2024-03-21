@@ -75,7 +75,7 @@ function FeaturedProducts() {
             </Grid>
           ))
         ) : (
-          <Typography>Kunde inte hämta inlägg</Typography>
+          <Typography>Couldn't get any products.</Typography>
         )}
       </Grid>
     </>
