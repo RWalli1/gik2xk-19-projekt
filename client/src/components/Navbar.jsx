@@ -5,8 +5,6 @@ import {
   List,
   useMediaQuery,
 } from "@mui/material";
-/*const pages = ["Products", "Pricing", "Blog"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];*/
 
 import { Link, Outlet } from "react-router-dom";
 

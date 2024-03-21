@@ -10,7 +10,7 @@ import { Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
 
 function ProductItemSmall({ product }) {
-  // Check if the product is defined and has a title and imageUrl (essentials).
+  // Check if the product is defined and has a title and imageUrl (eftersom de är allowNull: false).
   if (!product || !product.title || !product.imageUrl) {
     return <div>Product information unavailable</div>;
   }
