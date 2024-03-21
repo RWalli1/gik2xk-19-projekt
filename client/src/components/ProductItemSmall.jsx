@@ -19,34 +19,33 @@ function ProductItemSmall({ product }) {
     <>
       <Card>
         <CardMedia
-          sx={{ height: 300 }} // Set static height for product image
-          image={product.imageUrl} // Product image URL
-          title={product.title} // Alt text for the image
+          sx={{ height: 300 }}
+          image={product.imageUrl}
+          title={product.title}
         />
         <CardContent>
-          {/* Product title with a link to product details */}
           <Typography gutterBottom variant="h5" component="div">
             <Link to={`/products/${product.id}`}>{product.title}</Link>
           </Typography>
-          {/* Product price displayed prominently */}
+
           <Typography
             gutterBottom
             variant="body"
             component="div"
             sx={{
-              fontSize: 22, // Increase font size for price
-              marginTop: 0.5, // Margin top for spacing
+              fontSize: 22,
+              marginTop: 0.5,
             }}
           >
-            {`$${product.price}`} // Display price
+            {`$${product.price}`}
           </Typography>
         </CardContent>
         <CardActions>
           <Box>
-            <AddToCart product={product} /> {/* Add to cart button */}
+            <AddToCart product={product} />
           </Box>
           <Box>
-            <ProductRating product={product} /> {/* Display product rating */}
+            <ProductRating product={product} />
           </Box>
         </CardActions>
       </Card>

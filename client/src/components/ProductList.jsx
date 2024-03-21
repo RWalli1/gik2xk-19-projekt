@@ -25,19 +25,16 @@ function ProductList() {
       columnSpacing={5}
       rowSpacing={5}
     >
-      {error ? ( // Display error message if error state is not null
+      {error ? (
         <Typography>{error}</Typography>
-      ) : products?.length > 0 ? ( // Render product items if products array is not empty
+      ) : products?.length > 0 ? (
         products.map((product) => (
           <Grid item key={product.id}>
-            {" "}
-            {/* Key is product id for list efficiency */}
-            <ProductItemSmall product={product} />{" "}
-            {/* Product item component */}
+            <ProductItemSmall product={product} />
           </Grid>
         ))
       ) : (
-        <Typography>No products found.</Typography> // Message displayed if no products are found
+        <Typography>No products found.</Typography>
       )}
     </Grid>
   );

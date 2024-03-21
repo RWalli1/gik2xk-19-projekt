@@ -14,20 +14,16 @@ function ProductRating({ product }) {
 
   return (
     <>
-      {/* Display the product rating as read-only */}
       <Rating
         name="half-rating-read"
         defaultValue={2.5}
-        precision={0.5} // Allow half-star ratings
-        value={newRating} // The actual rating value
-        readOnly // Make the rating read-only
+        precision={0.5}
+        value={newRating} 
+        readOnly 
       />
-
-      {/* Display the average rating in bold typography */}
       <Typography sx={{ fontWeight: "bold" }}>
-        Average: {`(${newRating})`} // Display the average rating
+        Average: {`(${newRating})`} 
       </Typography>
-      {/* Display the total number of ratings */}
       <Typography> {`Total ratings: ${product.ratings?.length}`}</Typography>
     </>
   );

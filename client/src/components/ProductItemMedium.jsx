@@ -18,22 +18,22 @@ function ProductItemMedium({ product }) {
     <>
       <Card>
         <CardMedia
-          sx={{ height: 400 }} // Static height for the media component
-          image={product.imageUrl} // Product image URL
-          title={product.title} // Alt text for the image for accessibility
+          sx={{ height: 400 }} 
+          image={product.imageUrl} 
+          title={product.title} 
         />
         <CardContent>
-          {/* Product title with a link to its detail page */}
+          
           <Typography gutterBottom variant="h5" component="div">
             <Link to={`/products/${product.id}`}>{product.title}</Link>
           </Typography>
-          {/* Custom component to display the product's rating */}
+          
           <ProductRating product={product} />
         </CardContent>
         <CardActions>
-          {/* Add to Cart button */}
+          
           <AddToCart product={product} />
-          {/* Display product price prominently */}
+          
           <Typography
             gutterBottom
             variant="body"

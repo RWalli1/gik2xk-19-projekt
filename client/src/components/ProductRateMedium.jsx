@@ -19,16 +19,14 @@ function ProductRateMedium({ product }) {
     <>
       <Card>
         <CardMedia
-          sx={{ height: 400, minWidth: "22rem" }} // Set style for media
-          image={product.imageUrl} // Product image URL
-          title={product.title} // Alt text for accessibility
+          sx={{ height: 400, minWidth: "22rem" }} 
+          image={product.imageUrl}
+          title={product.title} 
         />
         <CardContent>
-          {/* Product title with a link to product detail page */}
           <Typography gutterBottom variant="h5" component="div">
             <Link to={`/products/${product.id}`}>{product.title}</Link>
           </Typography>
-          {/* Rating component could be used here to display product's rating */}
         </CardContent>
       </Card>
     </>

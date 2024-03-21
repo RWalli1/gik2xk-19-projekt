@@ -11,28 +11,21 @@ function ProductRatingList({ product }) {
           alignItems: "center",
           justifyContent: "center",
           flexDirection: "column",
-          listStyle: "none", // Remove default list styling
-          rowGap: 2, // Space between rows
+          listStyle: "none", 
+          rowGap: 2, 
         }}
       >
-        {/* Title for rating details */}
         <Typography variant="h5">Rating details</Typography>
-        {/* Average rating */}
         <Typography>
           Average rating for {product.title} is ({product.averageRating})
         </Typography>
-        {/* Intro text for list of all ratings */}
         <Typography variant="body">
           All ratings for {product.title} below:
         </Typography>
-        {/* List of all individual ratings */}
         <List>
           {product.ratings?.length > 0 ? (
             product.ratings.map((rating, index) => (
               <ListItem key={index}>
-                {" "}
-                {/* Key for list efficiency */}
-                {/* Display rating as read-only */}
                 <Rating
                   name={`rating-read-${index}`}
                   defaultValue={2.5}
@@ -40,15 +33,13 @@ function ProductRatingList({ product }) {
                   value={rating}
                   readOnly
                 />
-                {/* Rating value */}
                 <Typography variant="body2" sx={{ fontWeight: "bold" }}>
-                  {" "}
                   ({rating})
                 </Typography>
               </ListItem>
             ))
           ) : (
-            <Typography variant="body">Couldn't find any ratings.</Typography> // Message if no ratings found
+            <Typography variant="body">Couldn't find any ratings.</Typography> 
           )}
         </List>
       </List>

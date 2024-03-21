@@ -17,33 +17,25 @@ function CartItemSmall({ cartItem }) {
   return (
     <>
       <Card sx={{ display: "flex", justifyContent: "space-between" }}>
-        {" "}
-        {/* Styling the card */}
         <Box sx={{ display: "flex" }}>
-          {" "}
-          {/* Container for the item */}
           <CardMedia
-            sx={{ height: 100, width: 100 }} // Styling the item image
-            image={cartItem.imageUrl} // Item image URL
-            title={cartItem.title} // Image title (for accessibility)
+            sx={{ height: 100, width: 100 }}
+            image={cartItem.imageUrl}
+            title={cartItem.title} 
           />
           <CardContent>
-            {" "}
-            {/* Container for the item content */}
             <Typography gutterBottom variant="body1" component="div">
               <Link to={`/products/${cartItem.productId}`}>
-                {" "}
-                {/* Link to the product */}
-                {cartItem.title} {/* Product title */}
+                {cartItem.title}
               </Link>
             </Typography>
             <Typography gutterBottom variant="body2" component="div">
-              {`$${cartItem.price}`} {/* Product price */}
+              {`$${cartItem.price}`}
             </Typography>
           </CardContent>
         </Box>
         <Typography gutterBottom variant="body2" component="div">
-          {`Amount: ${cartItem.amount}`} {/* Product amount */}
+          {`Amount: ${cartItem.amount}`}
         </Typography>
       </Card>
     </>

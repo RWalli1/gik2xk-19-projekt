@@ -29,7 +29,7 @@ function FeaturedProducts() {
           fontWeight: "bold",
         }}
       >
-        Featured Products {/* Title for the featured products section */}
+        Featured Products 
       </Typography>
 
       <Grid
@@ -40,21 +40,19 @@ function FeaturedProducts() {
         rowSpacing={5}
       >
         {error ? (
-          <Typography>{error}</Typography> // Display error if present
+          <Typography>{error}</Typography> 
         ) : products.length > 0 ? (
           products.slice(0, 3).map(
             (
-              product // Map through the first three products and render
+              product 
             ) => (
               <Grid item key={product.title}>
-                {" "}
-                {/* Each product as a grid item */}
                 <ProductItemMedium product={product} />
               </Grid>
             )
           )
         ) : (
-          <Typography>Couldn't get any products.</Typography> // Show message if no products are found
+          <Typography>Couldn't get any products.</Typography> 
         )}
       </Grid>
     </>

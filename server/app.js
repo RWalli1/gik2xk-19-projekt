@@ -16,7 +16,7 @@ app.use((req, res, next) => {
   });
 
 app.use('/products', require('./routes/productRoutes')); 
-app.use("/users",require("./routes/userRoutes"));
+app.use("/users",require("./routes/userRoutes")); 
 app.use("/carts",require("./routes/cartRoutes")); 
 
 module.exports = app; 
