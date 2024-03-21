@@ -1,5 +1,22 @@
 import axios from "./api";
 
+
+export async function deleteProducts(id) {
+  try {
+    
+      const response = await axios.delete(`/users/${id}/clearCart`);
+      if (response.status == 200){
+        return response.data;
+      } 
+      else {
+          console.log(data);
+          return null;
+      }
+  } catch (e) {
+      e?.response ? console.log(e.response.data) : console.log(e);
+  }
+}
+
 export async function getOne(id) {
     try {
       
@@ -16,7 +33,7 @@ export async function getOne(id) {
     }
 }
 
-export async function create(cartRow) {
+export async function addProduct(cartRow) {
     try {
         const response = await axios.post('/carts/addProduct', cartRow);
         if (response.status === 200) {

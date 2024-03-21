@@ -20,6 +20,21 @@ const {
       },
     },
   };
+
+  async function deleteProducts(id) {
+    try {
+      console.log(`deleting rows in cart id: ${id}`);
+      const cartRows = await db.cartRow.destroy({
+        where: {
+          cartId: id,
+        },
+      });
+      return createResponseSuccess("great success");
+    } catch (error) {
+      return createResponseError(error.status, error.message);
+    }
+  }
+  
 async function addProduct(cartRow) {
   try {
     // Attempt to find the existing cartRow with the specified cartId and productId
@@ -166,6 +181,7 @@ async function getAll() {
   
 
   module.exports = {
+    deleteProducts,
     getAll,
     addProduct,
     getCartByUserId,

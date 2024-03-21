@@ -51,6 +51,14 @@ router.get("/:id/getCart", (req, res) => {
   });
 
 
+  // clear user cart
+
+  router.delete("/:id/clearCart", (req, res) => {
+    const id = req.params.id;
+    cartService.deleteProducts(id).then((result) => {
+      res.status(result.status).json(result.data);
+    });
+  });
 
 // GET /users
 router.get('/', async (req, res) => {

@@ -13,7 +13,6 @@ a:visited {
     color: inherit;
 }
 a:hover {
-    color: #ff0000; /* Text color changes to red */
-    background-color: #000000; /* Background color changes to black */
+    color: #4dabf5;
     
   }

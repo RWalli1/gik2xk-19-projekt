@@ -12,7 +12,8 @@ import { Box, Grid, useMediaQuery } from "@mui/material";
 import ProductRating from "./ProductRating";
 import Rating from "@mui/material/Rating";
 import AddToCart from "./AddToCart";
-import RateReviewIcon from '@mui/icons-material/RateReview';
+import RateReviewIcon from "@mui/icons-material/RateReview";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
 
 function ProductItemLarge({ product }) {
   console.log(product);
@@ -39,22 +40,33 @@ function ProductItemLarge({ product }) {
             <Typography variant="body2" color="text.secondary">
               {product.description}
             </Typography>
-            <Typography gutterBottom variant="h5" component="div">
+            <Typography gutterBottom variant="body" component="div" sx={{
+              fontSize: 22,
+              marginTop: 0.5,
+            
+            }}>
               {`$${product.price}`}
             </Typography>
           </CardContent>
           <CardActions>
             <AddToCart product={product} />
-            <Link to={`/products/${product.id}/edit`}
-            >{`Edit Product`}
+            <Link to={`/products/${product.id}/edit`}>
+              <Button>
               <EditIcon />
+                <Typography>
+                  Edit product
+                  
+                </Typography>
+              </Button>
             </Link>
-            <Typography>
-              <Link
-                to={`/products/${product.id}/addRating`}
-              >{`Rate Product`}<RateReviewIcon/>
-              </Link>
-            </Typography>
+            <Link to={`/products/${product.id}/addRating`}>
+              <Button>
+              <StarBorderIcon />
+                <Typography>
+                  Set rating
+                </Typography>
+              </Button>
+            </Link>
           </CardActions>
         </Card>
       </Grid>

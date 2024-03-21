@@ -1,18 +1,33 @@
 import CartItemSmall from "../components/CartItemSmall";
-import { getOne } from "../services/CartService";
+import { getOne, deleteProducts } from "../services/CartService";
 import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Card from "@mui/material/Card";
 import { CardMedia } from "@mui/material";
+import Button from "@mui/material/Button";
+import { RemoveShoppingCart } from "@mui/icons-material";
 
 function Carts() {
   const { id } = useParams();
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(null);
   useEffect(() => {
     getOne(id).then((cart) => setCart(cart));
   }, [id]);
+
+  function clearCart() {
+    if (cart && cart.cartItems) {
+      deleteProducts(cart.id).then((response) => {
+        getOne(id).then((updatedCart) => {
+          setCart(updatedCart); // Update state with the fetched data
+        });
+        console.log(response);
+      });
+    } else {
+      console.log("no items in cart!");
+    }
+  }
 
   const testCart = {
     payed: false,
@@ -44,29 +59,60 @@ function Carts() {
       totalPrice += cartItem.price * cartItem.amount;
     });
   }
+
+  if (!cart) {
+    // Render nothing or a loading indicator if cart is null
+    return (
+      <Typography textAlign="center">
+        There was no cart for the user with id: {id}
+      </Typography>
+    );
+  }
   return (
     <>
-      <Card sx={{display: "flex", flexDirection: "row", padding: 2, justifyContent:"center"}}>
-
+      <Card
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          padding: 2,
+          justifyContent: "center",
+        }}
+      >
         <Box
           sx={{
             display: "flex",
             flexDirection: "column",
             flexWrap: "wrap",
-            gap: 2
+            gap: 2,
           }}
         >
           {cart.cartItems?.length > 0 ? (
-            cart.cartItems.map((cartItem) => 
+            cart.cartItems.map((cartItem) => (
               <Box key={cartItem.title} sx={{ minWidth: 100 }}>
-                <CartItemSmall cartItem={cartItem}/>
+                <CartItemSmall cartItem={cartItem} />
               </Box>
-            )
+            ))
           ) : (
-            <Typography variant="h6">Couldn't get cart item</Typography>
+            <Typography variant="body">Empty cart</Typography>
           )}
         </Box>
       </Card>
+      {cart.cartItems?.length > 0 && (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <Button
+            variant="outlined"
+            startIcon={<RemoveShoppingCart />}
+            onClick={clearCart}
+          >
+            Clear cart
+          </Button>
+        </Box>
+      )}
       <Typography sx={{ marginTop: 2, textAlign: "center" }}>
         The total price is: ${totalPrice}
       </Typography>

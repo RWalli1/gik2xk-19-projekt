@@ -29,10 +29,9 @@ function ProductRatingList({ product }) {
         
         
 
-        <Typography>All ratings for {product.title} below:</Typography>
+        <Typography variant="body">All ratings for {product.title} below:</Typography>
         <List>
           {product.ratings?.length > 0 ? (
-            //.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
             product.ratings.map((rating) => (
               <ListItem>
                 <Rating
@@ -42,11 +41,13 @@ function ProductRatingList({ product }) {
                   value={rating}
                   readOnly
                 />
-                <Typography variant="h5"> ({rating})</Typography>
+                <Typography variant="body2" sx={{
+                  fontWeight: "bold"
+                }}> ({rating})</Typography>
               </ListItem>
             ))
           ) : (
-            <Typography variant="h5">Couldn't find any ratings.</Typography>
+            <Typography variant="body">Couldn't find any ratings.</Typography>
           )}{" "}
         </List>
       </List>

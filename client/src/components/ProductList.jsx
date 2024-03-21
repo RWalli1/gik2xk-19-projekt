@@ -1,5 +1,5 @@
 import ProductItemSmall from "./ProductItemSmall";
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import { getAll } from "../services/ProductService";
 import { useEffect, useState } from "react";
 
@@ -114,7 +114,8 @@ function ProductList() {
             </Grid>
           ))
       ) : (
-        <h3>Kunde inte hämta inlägg</h3>
+
+        <Typography>Could not find products </Typography>
       )}
     </Grid>
   );

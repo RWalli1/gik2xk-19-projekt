@@ -1,25 +1,26 @@
-import { create, getOne } from "../services/CartService";
+import { addProduct, getOne } from "../services/CartService";
 import { useEffect, useState } from "react";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import Button from "@mui/material/Button";
+import { TextField } from "@mui/material";
 
 function AddToCart({ product }) {
   const id = 1;
   const [cart, setCart] = useState([]);
+  const [quantity, setQuantity] = useState(1); // Local state to hold the TextField value
 
   useEffect(() => {
     getOne(id).then((cart) => setCart(cart));
   }, [id]);
-  function onAdd() {
-    console.log(cart);
+  function onAdd(quantity) {
     if (cart && product) {
       const cartRow = {
         cartId: cart.id,
         productId: product.id,
-        amount: 1,
+        amount: quantity,
       };
       console.log(cartRow);
-      create(cartRow).then((response) => {
+      addProduct(cartRow).then((response) => {
         console.log(response);
       });
     } else {
@@ -29,7 +30,14 @@ function AddToCart({ product }) {
 
   return (
     <>
-      <Button size="small" onClick={onAdd}>
+      <TextField
+        label="Amount"
+        sx={{ width: "20%" }}
+        type="number"
+        onChange={(e) => setQuantity(parseInt(e.target.value, 10) || 1)}
+        defaultValue={1}
+      />
+      <Button size="small" onClick={() => onAdd(quantity)}>
         <AddShoppingCartIcon />
       </Button>
     </>

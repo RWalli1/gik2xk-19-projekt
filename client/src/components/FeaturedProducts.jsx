@@ -76,7 +76,7 @@ function FeaturedProducts() {
               </Grid>
             ))
         ) : (
-          <h3>Kunde inte hämta inlägg</h3>
+          <Typography variant="body">Kunde inte hämta inlägg</Typography>
         )}
       </Grid>
     </>

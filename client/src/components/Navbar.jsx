@@ -1,13 +1,6 @@
 import VideogameAssetIcon from "@mui/icons-material/VideogameAsset";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Button,
-  IconButton,
-  Menu,
-  MenuItem,
   ListItem,
   List,
   useMediaQuery,

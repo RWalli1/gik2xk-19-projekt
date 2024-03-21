@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ProductRating from "./ProductRating";
 import AddToCart from "./AddToCart";
+import { Box } from "@mui/material";
 
 //import Rating from " @mui.com/material-ui/react-rating/";
 
@@ -31,14 +32,21 @@ function ProductItemSmall({ product }) {
             <Link to={`/products/${product.id}`}>{product.title}</Link>
           </Typography>
 
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography gutterBottom variant="body" component="div"
+          sx={{
+            fontSize: 22,
+            marginTop: 0.5,
+          }}>
             {`$${product.price}`}
           </Typography>
         </CardContent>
         <CardActions>
+          <Box>
           <AddToCart product={product} />
-
+          </Box>
+          <Box>
           <ProductRating product={product} />
+          </Box>
         </CardActions>
       </Card>
     </>
