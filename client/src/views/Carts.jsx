@@ -33,8 +33,7 @@ function Carts() {
 
   // Calculate total price of items in cart
   let totalPrice = 0;
-  console.log("trying to use cart: ");
-  console.log(cart);
+
   if (cart && cart.cartItems) {
     cart.cartItems.forEach((cartItem) => {
       totalPrice += cartItem.price * cartItem.amount;

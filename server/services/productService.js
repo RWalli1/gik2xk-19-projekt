@@ -38,7 +38,7 @@ async function getById(id) {
     const product = await db.product.findOne({
       where: { id },
 
-      include: [db.rating], // har inte fixat rating än.
+      include: [db.rating],
     });
     return createResponseSuccess(_formatProduct(product)); // _formatpost
   } catch (error) {
