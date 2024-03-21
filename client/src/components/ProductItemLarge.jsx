@@ -7,12 +7,8 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { Box, Grid, useMediaQuery } from "@mui/material";
-import ProductRating from "./ProductRating";
-import Rating from "@mui/material/Rating";
 import AddToCart from "./AddToCart";
-import RateReviewIcon from "@mui/icons-material/RateReview";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import Stack from "@mui/material/Stack";
 

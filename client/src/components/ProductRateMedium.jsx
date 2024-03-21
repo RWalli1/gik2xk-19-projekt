@@ -7,13 +7,11 @@ import Typography from "@mui/material/Typography";
 import Rating from "@mui/material/Rating";
 
 function ProductRateMedium({ product }) {
-
-
   return (
     <>
       <Card>
         <CardMedia
-          sx={{ height: 400, minWidth: "22rem"}}
+          sx={{ height: 400, minWidth: "22rem" }}
           image={product.imageUrl}
           title={product.title}
         />
@@ -21,7 +19,7 @@ function ProductRateMedium({ product }) {
           <Typography gutterBottom variant="h5" component="div">
             <Link to={`/products/${product.id}`}>{product.title}</Link>
           </Typography>
-          {/* Display the rating; readOnly to just display without editing capability */}
+          {/* Display read-only rating */}
         </CardContent>
       </Card>
     </>

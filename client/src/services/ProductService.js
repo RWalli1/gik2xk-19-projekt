@@ -18,7 +18,6 @@ export async function getOne(id) {
       
         const response = await axios.get(`/products/${id}`);
         if (response.status == 200){
-          //console.log(response.data);
           return response.data;
           
         } 

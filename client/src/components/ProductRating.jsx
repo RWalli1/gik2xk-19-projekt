@@ -4,7 +4,6 @@ import { Box, List } from "@mui/material";
 
 function ProductRating({ product }) {
   const newRating = product.averageRating;
-  console.log(newRating);
   return (
     <>
       <Rating

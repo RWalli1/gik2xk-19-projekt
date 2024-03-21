@@ -5,7 +5,6 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Card from "@mui/material/Card";
-import { CardMedia } from "@mui/material";
 import Button from "@mui/material/Button";
 import { RemoveShoppingCart } from "@mui/icons-material";
 

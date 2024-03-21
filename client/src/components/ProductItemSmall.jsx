@@ -9,12 +9,10 @@ import AddToCart from "./AddToCart";
 import { Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
 
-//import Rating from " @mui.com/material-ui/react-rating/";
-
 function ProductItemSmall({ product }) {
-  // Check if the product is defined and has a title and imageUrl, which are likely essential
+  // Check if the product is defined and has a title and imageUrl (essentials).
   if (!product || !product.title || !product.imageUrl) {
-    return <div>Product information unavailable</div>
+    return <div>Product information unavailable</div>;
   }
 
   return (

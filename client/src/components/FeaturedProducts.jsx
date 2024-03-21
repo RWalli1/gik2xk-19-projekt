@@ -2,11 +2,10 @@ import ProductItemMedium from "./ProductItemMedium";
 import { Grid, Typography } from "@mui/material";
 import { getAll } from "../services/ProductService";
 import { useEffect, useState } from "react";
-import ProductRatingList from "../components/ProductRatingList";
 
 function FeaturedProducts() {
   const [products, setProducts] = useState([]);
-  const [error, setError] = useState(""); // Add an error state
+  const [error, setError] = useState(""); // handle error
   useEffect(() => {
     getAll().then((products) => setProducts(products));
   }, []);

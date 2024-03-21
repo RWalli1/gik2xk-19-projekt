@@ -155,8 +155,6 @@ function ProductEdit() {
               label="URL to image"
             />
           </Box>
-
-          <Box mt={2}>{/*<TagField onSave={onRatingAdd} />*/}</Box>
           <Box display="flex" mt={2}>
             <Box flexGrow={1}>
               <Button
