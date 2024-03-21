@@ -1,6 +1,7 @@
 import ProductList from "../components/ProductList";
 import { Typography } from "@mui/material";
 
+// view for all products.
 function Products() {
   return (
     <>

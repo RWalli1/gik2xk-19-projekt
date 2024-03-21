@@ -10,16 +10,19 @@ import { RemoveShoppingCart } from "@mui/icons-material";
 
 function Carts() {
   const { id } = useParams();
-  const [cart, setCart] = useState(null);
+  const [cart, setCart] = useState(null); // Initial state for cart data
+
+  // Fetch cart data on component mount or id change
   useEffect(() => {
     getOne(id).then((cart) => setCart(cart));
   }, [id]);
 
+  // Handles clearing items from cart
   function clearCart() {
     if (cart && cart.cartItems) {
       deleteProducts(cart.id).then((response) => {
         getOne(id).then((updatedCart) => {
-          setCart(updatedCart); // Update state with the fetched data
+          setCart(updatedCart); // Refresh cart data
         });
         console.log(response);
       });
@@ -28,28 +31,7 @@ function Carts() {
     }
   }
 
-  const testCart = {
-    payed: false,
-    cartItems: [
-      {
-        title: "Elias medicinspel",
-        description: "Spännande pusselspel som liknar tetris",
-        price: 19,
-        imageUrl:
-          "https://media.gameshop.se/wp-content/uploads/2019/09/30225538/11392.png",
-        amount: 3,
-      },
-      {
-        title: "Jimmy medicinspel",
-        description: "Spännande pusselspel som liknar tetris",
-        price: 19,
-        imageUrl:
-          "https://media.gameshop.se/wp-content/uploads/2019/09/30225538/11392.png",
-        amount: 3,
-      },
-    ],
-  };
-
+  // Calculate total price of items in cart
   let totalPrice = 0;
   console.log("trying to use cart: ");
   console.log(cart);
@@ -59,14 +41,15 @@ function Carts() {
     });
   }
 
+  // Render nothing or a loading indicator if cart is null
   if (!cart) {
-    // Render nothing or a loading indicator if cart is null
     return (
       <Typography textAlign="center">
         There was no cart for the user with id: {id}
       </Typography>
     );
   }
+
   return (
     <>
       <Card

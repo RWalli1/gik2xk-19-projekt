@@ -1,6 +1,9 @@
-import axios from "./api";
+import axios from "./api"; // import our version of axios
 
 
+
+
+// delete products from a cart by card id.
 export async function deleteProducts(id) {
   try {
     
@@ -17,6 +20,7 @@ export async function deleteProducts(id) {
   }
 }
 
+// get one cart by user id.
 export async function getOne(id) {
     try {
       
@@ -33,6 +37,7 @@ export async function getOne(id) {
     }
 }
 
+// add product to cart 
 export async function addProduct(cartRow) {
     try {
         const response = await axios.post('/carts/addProduct', cartRow);

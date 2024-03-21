@@ -1,5 +1,7 @@
-import axios from "./api";
+import axios from "./api"; // import our version of axios 
 
+
+// gets all products
 export async function getAll(endpoint = "/products/")
 {
     try {
@@ -13,6 +15,8 @@ export async function getAll(endpoint = "/products/")
         e?.response ? console.log(e.response.data) : console.log(e);
     }
 }
+
+// gets one product by its id. 
 export async function getOne(id) {
     try {
       
@@ -30,6 +34,7 @@ export async function getOne(id) {
     }
 }
 
+// creates a new product 
 export async function create(product) {
     try {
         const response = await axios.post('/products/', product);
@@ -44,6 +49,8 @@ export async function create(product) {
         e?.response ? console.log(e.response.data) : console.log(e);
       }
 }
+
+// adds a rating to a product.
 export async function addRating(productId,rating) {
   try {
       const response = await axios.post(`/products/${productId}/addRating`, rating);
@@ -59,6 +66,7 @@ export async function addRating(productId,rating) {
     }
 }
 
+// updates a product based upon id. 
 export async function update(product) {
     try {
       const response = await axios.put(`/products/${product.id}`, product);
@@ -75,6 +83,7 @@ export async function update(product) {
     }
   }
   
+  // removes a product based on id.
   export async function remove(id) {
     try {
       const response = await axios.delete(`/products/${id}`, { data: { id } });

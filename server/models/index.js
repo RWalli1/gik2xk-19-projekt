@@ -13,9 +13,9 @@ let sequelize;
 if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
-  sequelize = new Sequelize( 
+  sequelize = new Sequelize(
     config.database,
-    config.username,  
+    config.username,
     config.password,
     config
   );
@@ -44,7 +44,7 @@ Object.keys(db).forEach((modelName) => {
   }
 });
 
-// relations
+// Define relations between/for the models
 
 // rating
 db.rating.belongsTo(db.product);
@@ -60,11 +60,9 @@ db.user.hasMany(db.cart, {
   onDelete: "CASCADE",
 });
 
-// cart row  
+// cart row
 db.cart.belongsToMany(db.product, { through: db.cartRow });
 db.product.belongsToMany(db.cart, { through: db.cartRow });
-
-
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

@@ -26,6 +26,7 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 
+// view for editing, creating and deleting products.
 function ProductEdit() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -36,8 +37,9 @@ function ProductEdit() {
     imageUrl: "",
     ratings: [],
   };
-  const [product, setProduct] = useState(emptyProduct);
+  const [product, setProduct] = useState(emptyProduct); // State to manage product data
 
+  // Fetch product data when component mounts or ID changes
   useEffect(() => {
     if (id) {
       getOne(id).then((product) => setProduct(product));
@@ -46,6 +48,7 @@ function ProductEdit() {
     }
   }, [id]);
 
+  // Update product state when form fields change
   function onChange(e) {
     const name = e.target.name;
     const value = e.target.value;
@@ -54,6 +57,7 @@ function ProductEdit() {
     setProduct(newProduct);
   }
 
+  // edit or save product, depending if it exists already.
   function onSave() {
     if (product.id === 0) {
       create(product).then((response) => {
@@ -70,33 +74,14 @@ function ProductEdit() {
       );
     }
   }
-  function onRatingAdd(ratingString) {
-    //splitta arrayen vid kommatecken
-    const ratingArray = ratingString.split(",");
-    //trimma whitespace runt ratings
-    const uniqueAndTrimmedRatings = ratingArray
-      .map((rating) => rating.trim())
-      .filter((rating) => !product.ratings.includes(rating));
-
-    //slå samman befintlig tag-array med de nya, unika taggarna
-    const mergedArray = [...product.ratings, ...uniqueAndTrimmedRatings];
-
-    //spara befintligt inlägg med nya ratings-arrayen till state.
-    setProduct({ ...product, ratings: mergedArray });
-  }
-  function onRatingDelete(ratingToDelete) {
-    let testRatings = product.ratings;
-    testRatings.splice(ratingToDelete, 1);
-    setProduct({ ...product, ratings: testRatings });
-    console.log(testRatings);
-  }
-
+  // deleting product
   function onDelete() {
     remove(product.id).then((response) =>
       navigate(`/products/`, { replace: true, state: response })
     );
   }
 
+  // render form and such
   return (
     <Container maxWidth="lg">
       <Typography variant="h4" component="h2">

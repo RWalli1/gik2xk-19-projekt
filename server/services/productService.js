@@ -1,12 +1,14 @@
 const db = require("../models");
 const validate = require("validate.js");
 
+// Helper functions
 const {
   createResponseSuccess,
   createResponseError,
   createResponseMessage,
 } = require("../helpers/responseHelper");
 
+// Validation constraints
 const constraints = {
   title: {
     length: {
@@ -17,23 +19,26 @@ const constraints = {
     },
   },
 };
+
+// Fetch all products with ratings
 async function getAll() {
   try {
-    const allProducts = await db.product.findAll({include: [db.rating]});
-    return createResponseSuccess(allProducts.map((product) => _formatProduct(product)));
+    const allProducts = await db.product.findAll({ include: [db.rating] });
+    return createResponseSuccess(
+      allProducts.map((product) => _formatProduct(product))
+    );
   } catch (error) {
     return createResponseError(error.status, error.message);
   }
 }
 
-async function getById(id) { 
-  
+// Fetch a single product by ID with ratings
+async function getById(id) {
   try {
     const product = await db.product.findOne({
-      
-     where: { id },
-      
-      include: [db.rating], // har inte fixat rating än. 
+      where: { id },
+
+      include: [db.rating], // har inte fixat rating än.
     });
     return createResponseSuccess(_formatProduct(product)); // _formatpost
   } catch (error) {
@@ -41,6 +46,7 @@ async function getById(id) {
   }
 }
 
+// Add a rating to a product
 async function addRating(id, rating) {
   if (!id) {
     return createResponseError(422, "Id är obligatoriskt");
@@ -54,6 +60,7 @@ async function addRating(id, rating) {
   }
 }
 
+// Create a new product after validating data
 async function create(product) {
   const invalidData = validate(product, constraints);
   if (invalidData) {
@@ -71,6 +78,7 @@ async function create(product) {
   }
 }
 
+// Update an existing product by ID
 async function update(product, id) {
   const invalidData = validate(product, constraints);
   if (!id) {
@@ -84,7 +92,7 @@ async function update(product, id) {
     if (!existingProduct) {
       return createResponseError(404, "Hittade ingen produkt att uppdatera.");
     }
-   //await _addRatingToProduct(existingProduct, product.ratings); // rating iställe
+    //await _addRatingToProduct(existingProduct, product.ratings); // rating iställe
     await db.product.update(product, {
       where: { id },
     });
@@ -94,6 +102,7 @@ async function update(product, id) {
   }
 }
 
+// Delete a product by ID
 async function destroy(id) {
   if (!id) {
     return createResponseError(422, "Id är obligatoriskt");
@@ -108,6 +117,7 @@ async function destroy(id) {
   }
 }
 
+// Format product data including ratings
 async function _addRatingToProduct(product, ratings) {
   await db.rating.destroy({ where: { productId: product.id } });
 
@@ -119,32 +129,30 @@ async function _addRatingToProduct(product, ratings) {
   }
 }
 
-
-
 function _formatProduct(product) {
   const cleanProduct = {
-      id: product.id,
-      title: product.title,
-      description: product.description,
-      price: product.price,
-      imageUrl: product.imageUrl,
-      averageRating: 0,
-      ratings: [],
-     
-    
+    id: product.id,
+    title: product.title,
+    description: product.description,
+    price: product.price,
+    imageUrl: product.imageUrl,
+    averageRating: 0,
+    ratings: [],
   };
-  if (product.ratings)
-  {
+  if (product.ratings) {
     let sum = 0;
     product.ratings.map((rating) => {
       sum += rating.rating;
       cleanProduct.ratings = [rating.rating, ...cleanProduct.ratings];
     });
-    cleanProduct.averageRating = product.ratings.length > 0 ? Number((sum / product.ratings.length).toFixed(1)) : 0;
+    cleanProduct.averageRating =
+      product.ratings.length > 0
+        ? Number((sum / product.ratings.length).toFixed(1))
+        : 0;
   }
   return cleanProduct;
-  };
-  
+}
+
 module.exports = {
   _formatProduct,
   addRating,

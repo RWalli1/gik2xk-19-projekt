@@ -6,10 +6,12 @@ import { useEffect, useState } from "react";
 import { Typography } from "@mui/material";
 
 function ProductDetails() {
+  // show a more detailed version of the product.
   const { id } = useParams();
-  const [product, setProduct] = useState(null); // Initialize as null to differentiate from not yet loaded
-  const [error, setError] = useState(""); // Add an error state
+  const [product, setProduct] = useState(null); // Initialize as null
+  const [error, setError] = useState(""); // State for potential errors
 
+  // Fetch product details by ID
   useEffect(() => {
     getOne(id)
       .then((fetchedProduct) => {
@@ -25,7 +27,7 @@ function ProductDetails() {
         console.error("Failed to fetch product:", err);
         setError("Failed to load product. Please try again later."); // Set error message on failure
       });
-  }, [id]);
+  }, [id]); // refresh on id change
 
   if (error) {
     // error render
@@ -57,7 +59,7 @@ function ProductDetails() {
     );
   }
 
-  // Render product
+  // Render product and it's ratings
   return (
     <>
       <Typography

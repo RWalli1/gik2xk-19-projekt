@@ -1,49 +1,23 @@
+// Importing necessary components and hooks
 import ProductItemMedium from "./ProductItemMedium";
 import { Grid, Typography } from "@mui/material";
 import { getAll } from "../services/ProductService";
 import { useEffect, useState } from "react";
 
 function FeaturedProducts() {
-  const [products, setProducts] = useState([]);
-  const [error, setError] = useState(""); // handle error
+  const [products, setProducts] = useState([]); // State for storing products
+  const [error, setError] = useState(""); // State for handling errors
+
+  // Fetch all products on component mount
   useEffect(() => {
     getAll().then((products) => setProducts(products));
   }, []);
 
   let firstThreeProducts = {};
+  // Select only the first three products if available
   if (products.length >= 3) {
-    firstThreeProducts = products.slice(0, 3); // just take the first three as an example.
+    firstThreeProducts = products.slice(0, 3);
   }
-
-  const testFeaturedProducts = [
-    {
-      title: "Elias adventure 7",
-      description: "äventyr",
-      price: 399,
-      imageUrl:
-        "https://cdn.cafe.se/app/uploads/2020/07/4abe67e1-mobilspel.png",
-      averageRating: 1.3,
-      ratings: [3, 3],
-    },
-    {
-      title: "Raman adventure 7",
-      description: "äventyr",
-      price: 399,
-      imageUrl:
-        "https://www.researchgate.net/publication/216293397/figure/fig3/AS:669061860061212@1536528186955/The-cover-of-Super-Mario-Bross.jpg",
-      averageRating: 2.5,
-      ratings: [],
-    },
-    {
-      title: "Jimmys adventure 7",
-      description: "äventyr",
-      price: 399,
-      imageUrl:
-        "https://media.gameshop.se/wp-content/uploads/2019/09/30225538/11392.png",
-      averageRating: 5,
-      ratings: [],
-    },
-  ];
 
   return (
     <>
@@ -55,7 +29,7 @@ function FeaturedProducts() {
           fontWeight: "bold",
         }}
       >
-        Featured Products
+        Featured Products {/* Title for the featured products section */}
       </Typography>
 
       <Grid
@@ -66,19 +40,25 @@ function FeaturedProducts() {
         rowSpacing={5}
       >
         {error ? (
-          <Typography>{error}</Typography>
+          <Typography>{error}</Typography> // Display error if present
         ) : products.length > 0 ? (
-          products.slice(0, 3).map((product) => (
-            <Grid item key={product.title}>
-              <ProductItemMedium product={product} />
-            </Grid>
-          ))
+          products.slice(0, 3).map(
+            (
+              product // Map through the first three products and render
+            ) => (
+              <Grid item key={product.title}>
+                {" "}
+                {/* Each product as a grid item */}
+                <ProductItemMedium product={product} />
+              </Grid>
+            )
+          )
         ) : (
-          <Typography>Couldn't get any products.</Typography>
+          <Typography>Couldn't get any products.</Typography> // Show message if no products are found
         )}
       </Grid>
     </>
   );
 }
 
-export default FeaturedProducts;
+export default FeaturedProducts; // Exporting the component

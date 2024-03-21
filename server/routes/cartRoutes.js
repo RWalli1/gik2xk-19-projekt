@@ -1,54 +1,58 @@
-const validate = require('validate.js');
-const router = require('express').Router();
+const validate = require("validate.js");
+const router = require("express").Router();
 const db = require("../models");
-const cartService = require('../services/cartService');
+const cartService = require("../services/cartService");
 
-// add product to cart /cart/addProduct 
+// Route to add/post product to cart
+router.post("/addProduct", (req, res) => {
+  // Variable to store the request body
+  const cartRow = req.body;
 
-
-router.post('/addProduct', (req, res) => { // produkt blir en cartRow i när 
-  const cartRow = req.body; // Example adjustment
-    cartService.addProduct(cartRow).then((result) => {
-      res.status(result.status).json(result.data);
-    });
+  // Call cartService to add product to cart
+  cartService.addProduct(cartRow).then((result) => {
+    res.status(result.status).json(result.data);
   });
-
-
-
-// get all
-  router.get('/', async (req, res) => {
-    cartService.getAll().then((result) => {
-      res.status(result.status).json(result.data);
-    });
 });
 
-
-// create
-router.post('/', (req, res) => {
-    const cart = req.body;
-    cartService.create(cart).then((result) => {
-      res.status(result.status).json(result.data);
-    });
+// Route to get all carts
+router.get("/", async (req, res) => {
+  // Call cartService to get all carts
+  cartService.getAll().then((result) => {
+    res.status(result.status).json(result.data);
   });
+});
 
+// Route to create/post a new cart
+router.post("/", (req, res) => {
+  const cart = req.body;
 
-// delete
-router.delete('/:id', (req, res) => {
-    const id = req.params.id;
-    cartService.destroy(id).then((result) => {
-      res.status(result.status).json(result.data);
-    });
+  // Call cartService to create/post a new cart
+  cartService.create(cart).then((result) => {
+    res.status(result.status).json(result.data);
   });
+});
 
-// update
-  router.put('/:id', (req, res) => {
-    const cart = req.body;
-    const id = req.params.id;
-  
-    cartService.update(cart, id).then((result) => {
-      res.status(result.status).json(result.data);
-    });
+// Route to delete a cart
+router.delete("/:id", (req, res) => {
+  // Store cart ID from request parameters
+  const id = req.params.id;
+
+  // Call cartService to delete cart
+  cartService.destroy(id).then((result) => {
+    res.status(result.status).json(result.data);
   });
+});
 
+// Route to update a cart
+router.put("/:id", (req, res) => {
+  // Store cart data and cart ID from request body and parameters in variables
+  const cart = req.body;
+  const id = req.params.id;
 
-  module.exports = router;
+  // Call cartService to update the cart
+  cartService.update(cart, id).then((result) => {
+    res.status(result.status).json(result.data);
+  });
+});
+
+module.exports = router;

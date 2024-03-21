@@ -7,20 +7,24 @@ import Rating from "@mui/material/Rating";
 import List from "@mui/material/List";
 import Box from "@mui/material/Box";
 
+// Define the AddRating component for adding a product rating
 function AddRating() {
   const navigate = useNavigate();
   const { id } = useParams();
   const [product, setProduct] = useState([]);
+  // fetch underlying product
   useEffect(() => {
     getOne(id).then((product) => setProduct(product));
   }, [id]);
 
+  // Handler for posting a new rating
   function postRating(e) {
     if (product) {
       console.log(`added rating: ${e.target.value}`);
       const rating = {
         rating: e.target.value,
       };
+      // Call addRating and navigate on success
       addRating(id, rating).then((response) => {
         navigate(`/products/${id}/`, { replace: true, state: response });
         console.log(response);
