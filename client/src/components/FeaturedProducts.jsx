@@ -6,6 +6,7 @@ import ProductRatingList from "../components/ProductRatingList";
 
 function FeaturedProducts() {
   const [products, setProducts] = useState([]);
+  const [error, setError] = useState(""); // Add an error state
   useEffect(() => {
     getAll().then((products) => setProducts(products));
   }, []);
@@ -64,19 +65,17 @@ function FeaturedProducts() {
         alignItems="center"
         columnSpacing={5}
         rowSpacing={5}
-        //columnSpacing={{ xs: 3, sm: 2, md: 3 }}
       >
-        {firstThreeProducts?.length > 0 ? (
-          firstThreeProducts
-            //.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-            .map((product) => (
-              <Grid item>
-                <ProductItemMedium product={product} />
-                
-              </Grid>
-            ))
+        {error ? (
+          <Typography>{error}</Typography>
+        ) : products.length > 0 ? (
+          products.slice(0, 3).map((product) => (
+            <Grid item key={product.title}>
+              <ProductItemMedium product={product} />
+            </Grid>
+          ))
         ) : (
-          <Typography variant="body">Kunde inte hämta inlägg</Typography>
+          <Typography>Kunde inte hämta inlägg</Typography>
         )}
       </Grid>
     </>

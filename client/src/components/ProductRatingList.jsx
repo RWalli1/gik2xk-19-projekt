@@ -19,16 +19,6 @@ function ProductRatingList({ product }) {
         <Typography>
           Average rating for {product.title} is ({product.averageRating})
         </Typography>
-        {/*<Rating
-          name="half-rating-read"
-          defaultValue={2.5}
-          precision={0.5}
-          value={product.averageRating}
-          readOnly
-        /> */}
-        
-        
-
         <Typography variant="body">All ratings for {product.title} below:</Typography>
         <List>
           {product.ratings?.length > 0 ? (

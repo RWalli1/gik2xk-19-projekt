@@ -14,9 +14,12 @@ import Rating from "@mui/material/Rating";
 import AddToCart from "./AddToCart";
 import RateReviewIcon from "@mui/icons-material/RateReview";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
+import Stack from "@mui/material/Stack";
 
 function ProductItemLarge({ product }) {
-  console.log(product);
+  if (!product || !product.title || !product.imageUrl) {
+    return <div>Product information unavailable</div>;
+  }
   return (
     <>
       <Grid container justifyContent={"center"} alignItems={"center"}>
@@ -28,7 +31,7 @@ function ProductItemLarge({ product }) {
         >
           <CardMedia
             sx={{
-              height: useMediaQuery("(min-width: 700px)") ? 500 : 300,
+              height: useMediaQuery("(min-width: 700px)") ? 700 : 300,
             }}
             image={product.imageUrl}
             title={product.title}
@@ -40,33 +43,34 @@ function ProductItemLarge({ product }) {
             <Typography variant="body2" color="text.secondary">
               {product.description}
             </Typography>
-            <Typography gutterBottom variant="body" component="div" sx={{
-              fontSize: 22,
-              marginTop: 0.5,
-            
-            }}>
+            <Typography
+              gutterBottom
+              variant="body"
+              component="div"
+              sx={{
+                fontSize: 22,
+                marginTop: 0.5,
+              }}
+            >
               {`$${product.price}`}
             </Typography>
           </CardContent>
           <CardActions>
-            <AddToCart product={product} />
-            <Link to={`/products/${product.id}/edit`}>
-              <Button>
-              <EditIcon />
-                <Typography>
-                  Edit product
-                  
-                </Typography>
-              </Button>
-            </Link>
-            <Link to={`/products/${product.id}/addRating`}>
-              <Button>
-              <StarBorderIcon />
-                <Typography>
-                  Set rating
-                </Typography>
-              </Button>
-            </Link>
+            <Stack direction="column" spacing={1} width="100%">
+              <AddToCart product={product} />
+              <Stack direction="row" spacing={2} justifyContent="space-between">
+                <Link to={`/products/${product.id}/edit`}>
+                  <Button variant="outlined" startIcon={<EditIcon />}>
+                    Edit product
+                  </Button>
+                </Link>
+                <Link to={`/products/${product.id}/addRating`}>
+                  <Button variant="outlined" startIcon={<StarBorderIcon />}>
+                    Add rating
+                  </Button>
+                </Link>
+              </Stack>
+            </Stack>
           </CardActions>
         </Card>
       </Grid>

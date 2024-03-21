@@ -1,5 +1,6 @@
 import Typography from "@mui/material/Typography";
 import Rating from "@mui/material/Rating";
+import { Box, List } from "@mui/material";
 
 function ProductRating({ product }) {
   const newRating = product.averageRating;
@@ -13,7 +14,10 @@ function ProductRating({ product }) {
         value={newRating}
         readOnly
       />
-      <Typography sx={{ fontWeight: "bold" }}>{`(${newRating})`}</Typography>
+
+      <Typography sx={{ fontWeight: "bold" }}>
+        Average: {`(${newRating})`}
+      </Typography>
       <Typography> {`Total ratings: ${product.ratings?.length}`}</Typography>
     </>
   );

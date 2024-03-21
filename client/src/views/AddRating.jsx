@@ -30,6 +30,14 @@ function AddRating() {
     }
   }
 
+  if (!product) {
+    // Display a loading message or similar if the product is still being fetched
+    return (
+      <Typography variant="body1" textAlign="center">
+        Couldn't get product
+      </Typography>
+    );
+  }
   return (
     <>
       <List
@@ -56,6 +64,7 @@ function AddRating() {
             defaultValue={0}
             precision={0.5}
             onClick={postRating}
+            size="large"
           />
         </Box>
         <Box>

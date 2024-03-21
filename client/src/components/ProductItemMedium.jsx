@@ -16,6 +16,10 @@ import AddToCart from "./AddToCart";
 import { Box } from "@mui/material";
 
 function ProductItemMedium({ product }) {
+  if (!product || !product.title || !product.imageUrl) {
+    
+    return <Typography>Product information is not available.</Typography>
+  }
   return (
     <>
       <Card>
@@ -29,14 +33,16 @@ function ProductItemMedium({ product }) {
             <Link to={`/products/${product.id}`}>{product.title}</Link>
           </Typography>
           <ProductRating product={product} />
-       
         </CardContent>
         <CardActions>
           <AddToCart product={product} />
-          <Typography gutterBottom variant="body" fontWeight="bold" component="div"
-          sx={{fontSize: 22,
-          marginTop:.5,
-          }}>
+          <Typography
+            gutterBottom
+            variant="body"
+            fontWeight="bold"
+            component="div"
+            sx={{ fontSize: 22, marginTop: 0.5 }}
+          >
             {`$${product.price}`}
           </Typography>
         </CardActions>
